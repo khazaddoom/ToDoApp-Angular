@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Renderer2, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +6,27 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'ToDoApp-Angular';
+  todoList: any;
+  itemText = '';
+
+  @ViewChild('inlineEditControl', { static: false}) inlineEditControl: ElementRef; // input DOM element
+  
+  constructor() {
+    this.todoList = [];
+  }
+
+  addToDo() {
+
+    let newItem = {
+      'text' : this.itemText,
+      'checked': false
+    }
+
+    this.todoList.push(newItem);
+
+    this.itemText = '';
+    this.inlineEditControl.nativeElement.focus();
+
+  }
+
 }
